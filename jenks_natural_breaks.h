@@ -32,8 +32,8 @@ namespace jenks {
             matrix<T> variance_combinations;
 
             matrices(int data_length, int n_classes) :
-                lower_class_limits(data_length + 1, std::vector<int>(n_classes + 1, 0)),
-                variance_combinations(data_length + 1, std::vector<T>(n_classes + 1, 0)) {
+                    lower_class_limits(data_length + 1, std::vector<int>(n_classes + 1, 0)),
+                    variance_combinations(data_length + 1, std::vector<T>(n_classes + 1, 0)) {
                 for (int i = 1; i <= n_classes; ++i) {
                     lower_class_limits[1][i] = 1;
                     variance_combinations[1][i] = 0;
