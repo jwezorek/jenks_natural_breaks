@@ -9,5 +9,12 @@ int main() {
 	}
 	std::cout << "\n";
 
+
+	std::vector<double> unsorted_data = { 1.0, 3000, 2.0, 40,50 ,3002};
+	for (auto natural_break : jenks::natural_breaks(unsorted_data, 3, false)) {
+		std::cout << natural_break << " ";
+	}
+	std::cout << "\n";
+
 	return 0;
 }

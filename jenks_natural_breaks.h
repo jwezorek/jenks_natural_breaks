@@ -63,7 +63,14 @@ namespace jenks {
     }
 
     template<typename T>
-    std::vector<T> natural_breaks(const std::vector<T>& data, int n_classes) {
+    std::vector<T> natural_breaks(const std::vector<T>& inp_data, int n_classes, bool is_sorted = true) {
+        std::vector<T> sorted_data;
+        if (!is_sorted) {
+            sorted_data = inp_data;
+            std::sort(sorted_data.begin(), sorted_data.end());
+        }
+        const auto& data = (is_sorted) ? inp_data : sorted_data;
+
         detail::matrix<int> lower_class_limits = detail::generate_matrices(data, n_classes).lower_class_limits;
         int k = static_cast<int>(data.size()) - 1;
         std::vector<T> kclass(n_classes + 1, 0);
