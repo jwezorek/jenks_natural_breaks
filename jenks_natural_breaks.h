@@ -4,6 +4,7 @@
 #include <cmath>
 #include <limits>
 #include <algorithm>
+#include <concepts>
 
 /*------------------------------------------------------------------------------------------------*/
 // This is Tom MacWright's javascript implementation of Jenk's natural breaks algorithm ported to
@@ -19,7 +20,7 @@ namespace jenks {
         template<typename T>
         using matrix = std::vector<std::vector<T>>;
 
-        template<typename T>
+        template<typename T> requires std::floating_point<T>
         struct matrices {
 
             // in the Fortran implementation, these matrices are referred to
@@ -47,7 +48,7 @@ namespace jenks {
         // Compute the matrices required for Jenks breaks. These matrices
         // can be used for any classing of data with `classes <= n_classes`
 
-        template<typename T>
+        template<typename T> requires std::floating_point<T>
         matrices<T> generate_matrices(const std::vector<T>& data, int n_classes) {
             int data_length = static_cast<int>(data.size());
             matrices<T> matrices(data_length, n_classes);
@@ -96,7 +97,7 @@ namespace jenks {
         }
     }
 
-    template<typename T>
+    template<typename T> requires std::floating_point<T>
     std::vector<T> natural_breaks(const std::vector<T>& inp_data, int n_classes, bool is_sorted = true) {
         std::vector<T> sorted_data;
         if (!is_sorted) {
