@@ -8,7 +8,7 @@
 
 /*------------------------------------------------------------------------------------------------*/
 // This is Tom MacWright's javascript implementation of Jenk's natural breaks algorithm ported to
-// C++17. The Javascript itself was a port from Jenks' original Fortran, 
+// C++20. The Javascript itself was a port from Jenks' original Fortran, 
 // see "Optimal Data Classification for Choropleth Maps", Jenks, 1977.
 // 
 // The original Fortran is not available online.
