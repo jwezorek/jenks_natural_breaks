@@ -97,6 +97,16 @@ namespace jenks {
         }
     }
 
+    /*
+    
+        The following returns a vector of (n_classes - 1) values. Each returned value is the end of 
+        a naturally clustered range of values in the input. The largest value in the input will be
+        assumed to be the end of the nth range and is thus not returned; e.g. if n_classes == 3 then
+        { 1, 2, 3, 101, 102, 103, 501, 502, 503} will return {3, 103} because these are the ends
+        of the ranges [1,3] and [101,103] with final range assumed to be [501,503].
+
+    */
+
     template<typename T> requires std::floating_point<T>
     std::vector<T> natural_breaks(const std::vector<T>& inp_data, int n_classes, bool is_sorted = true) {
         std::vector<T> sorted_data;
@@ -108,16 +118,13 @@ namespace jenks {
 
         detail::matrix<int> lower_class_limits = detail::generate_matrices(data, n_classes).lower_class_limits;
         int k = static_cast<int>(data.size()) - 1;
-        std::vector<T> kclass(n_classes + 1, 0);
+        std::vector<T> kclass(n_classes-1, 0);
 
-        // the calculation of classes will never include the upper and
-        // lower bounds, so we need to explicitly set them
-        kclass[n_classes] = data[k];
-        kclass[0] = data[0];
-
-        for (int countNum = n_classes; countNum > 1; countNum--) {
-            kclass[countNum - 1] = data[lower_class_limits[k][countNum] - 2];
-            k = lower_class_limits[k][countNum] - 1;
+        for (int countNum = n_classes-1; countNum > 0; countNum--) {
+            if (countNum > 0) {
+                kclass[countNum - 1] = data[lower_class_limits[k][countNum+1] - 2];
+            }
+            k = lower_class_limits[k][countNum+1] - 1;
         }
 
         return kclass;

@@ -2,8 +2,10 @@
 #include <iostream>
 
 int main() {
-    std::vector<double> data = { 1.0, 2.0, 3.0, 400.0, 432.0, 466.0 };
-    auto natural_breaks = jenks::natural_breaks(data, 2);
+    std::vector<double> data = { 
+        1.0, 2.0, 3.0, 101.0, 102.0, 103.0, 501.0, 502.0, 503.0 
+    };
+    auto natural_breaks = jenks::natural_breaks(data, 3);
     for (auto natural_break : natural_breaks) {
         std::cout << natural_break << " ";
     }
